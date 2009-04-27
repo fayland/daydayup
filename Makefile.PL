@@ -14,7 +14,7 @@ requires 'MojoX::Renderer::TT' => '0.20';
 requires 'MojoX::Fixup::XHTML';
 requires 'KiokuDB'  => '0.27';
 requires 'MooseX::Declare' => '0.10';
-requires 'MooseX::Types::Moose';
+requires 'MooseX::Types';
 
 tests ( join ' ', ( glob('t/*.t'), glob('t/*/*.t') ) );
 
