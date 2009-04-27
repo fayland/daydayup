@@ -12,12 +12,9 @@ requires 'Template' => '2.20';
 requires 'Template::Plugin::FillInForm';
 requires 'MojoX::Renderer::TT' => '0.20';
 requires 'MojoX::Fixup::XHTML';
-requires 'File::Spec';
-requires 'DBI';
-requires 'DBD::SQLite';
-requires 'YAML';
-requires 'File::Slurp';
-requires 'LWP::Simple';
+requires 'KiokuDB'  => '0.27';
+
+
 
 tests ( join ' ', ( glob('t/*.t'), glob('t/*/*.t') ) );
 

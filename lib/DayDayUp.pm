@@ -52,8 +52,7 @@ sub startup {
     # route
     $r->route('/notes/:id/:action', id => qr/\d+/)
       ->to(controller => 'notes', action => 'index');
-    $r->route('/contacts/:id/:action', id => qr/\d+/)
-      ->to(controller => 'contacts', action => 'index');
+
     # Default route
     $r->route('/:controller/:action')
       ->to(controller => 'index', action => 'index');
