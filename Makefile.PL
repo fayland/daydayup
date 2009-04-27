@@ -7,14 +7,14 @@ license         ('perl');
 version_from    ('lib/DayDayUp.pm');
 
 requires 'Mojo'     => '0.9';
-requires 'Moose'    => '0.57';
+requires 'Moose'    => '0.75';
 requires 'Template' => '2.20';
 requires 'Template::Plugin::FillInForm';
 requires 'MojoX::Renderer::TT' => '0.20';
 requires 'MojoX::Fixup::XHTML';
 requires 'KiokuDB'  => '0.27';
-
-
+requires 'MooseX::Declare' => '0.10';
+requires 'MooseX::Types::Moose';
 
 tests ( join ' ', ( glob('t/*.t'), glob('t/*/*.t') ) );
 
