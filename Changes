@@ -1,0 +1,31 @@
+Revision history for DayDayUp
+
+0.10
+    change TT2 COMPILE_DIR to tmpdir
+
+0.09    2009.02.21
+    add 'rejected' to notes
+    change log path
+
+0.07    2008.12.15
+    use MojoX::Fixup::XHTML
+    back to MojoX::Renderer::TT
+
+0.06    2008.12.08
+    fix log/development.log
+
+0.05    2008.12.06
+    add DayDayUp::Backup
+
+0.04    2008.11.21
+    add DayDayUp::Contacts
+
+0.03    2008.11.20
+    re-package
+
+0.02    2008.11.20
+    add DayDayUp::Perl
+
+0.01    2008.11.19
+    First version, released on an unsuspecting world.
+

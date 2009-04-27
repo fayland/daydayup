@@ -1,0 +1,25 @@
+<p> <a href="/notes/add">Add a Note</a> </p>
+
+[% USE FillInForm %]
+[% UNLESS fif.keys %]
+[% fif = c.req.params.as_hash || { level => 66 } %]
+[% END %]
+
+[% FILTER fillinform fdat => fif %]
+
+<form method='POST'>
+
+
+<p>Level: <select name='level'>
+[% FOREACH key IN levels.keys.sort.reverse %]
+<option value='[% key %]'>[% levels.$key %]</option>
+[% END %]
+</select></p>
+
+<p>Notes:<br /><textarea name="notes" cols="40" rows="7"></textarea></p>
+
+<p><input type='submit' /></p>
+
+</form>
+
+[% END %]
