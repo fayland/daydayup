@@ -1,76 +1,73 @@
 package DayDayUp;
 
-use strict;
-use warnings;
+use MooseX::Declare;
 
-our $VERSION = '0.09';
+class DayDayUp extends Mojolicious {
 
-use base 'Mojolicious';
+    our $VERSION = '0.09';
+    
+    use File::Spec ();
+    use Template::Stash::XS ();
+    use MojoX::Renderer::TT;
+    use MojoX::Fixup::XHTML;
+    
+    # This method will run for each request
+    method dispatch (Object $c) {
 
-use File::Spec ();
-use Template::Stash::XS ();
-use MojoX::Renderer::TT;
-use MojoX::Fixup::XHTML;
-
-# This method will run for each request
-sub dispatch {
-    my ($self, $c) = @_;
-
-    # Try to find a static file
-    my $done = $self->static->dispatch($c);
-
-    # Use routes if we don't have a response code yet
-    unless ( $done ) {
-        $done = $self->routes->dispatch($c);
-        if ( $done ) {
-            MojoX::Fixup::XHTML->fix_xhtml( $c );
+        # Try to find a static file
+        my $done = $self->static->dispatch($c);
+    
+        # Use routes if we don't have a response code yet
+        unless ( $done ) {
+            $done = $self->routes->dispatch($c);
+            if ( $done ) {
+                MojoX::Fixup::XHTML->fix_xhtml( $c );
+            }
         }
-    }
-
-    # Nothing found, serve static file "public/404.html"
-    unless ($done) {
-        $self->static->serve($c, '/404.html');
-        $c->res->code(404);
-    }
-}
-
-# This method will run once at server start
-sub startup {
-    my $self = shift;
-
-	# set log place
-	my $log_path = File::Spec->catfile(File::Spec->tmpdir(), 'daydayup.log');
-	$self->log->path( $log_path );
-	print STDERR "Logging into $log_path\n";
-
-    # Use our own context class
-    $self->ctx_class('DayDayUp::Context');
-
-    # Routes
-    my $r = $self->routes;
-
-    # route
-    $r->route('/notes/:id/:action', id => qr/\d+/)
-      ->to(controller => 'notes', action => 'index');
-
-    # Default route
-    $r->route('/:controller/:action')
-      ->to(controller => 'index', action => 'index');
-
-    my $tt = MojoX::Renderer::TT->build(
-        mojo => $self,
-        template_options => {
-            COMPILE_DIR  => File::Spec->tmpdir(),
-            POST_CHOMP   => 1,
-            PRE_CHOMP    => 1,
-            STASH        => Template::Stash::XS->new,
-            INCLUDE_PATH => [ $self->home->rel_dir('templates') ],
-            WRAPPER      => 'wrapper.html',
+    
+        # Nothing found, serve static file "public/404.html"
+        unless ($done) {
+            $self->static->serve($c, '/404.html');
+            $c->res->code(404);
         }
-    );
-    $self->renderer->add_handler( html => $tt );
+    };
+    
+    # This method will run once at server start
+    method startup {
 
-}
+    	# set log place
+    	my $log_path = File::Spec->catfile(File::Spec->tmpdir(), 'daydayup.log');
+    	$self->log->path( $log_path );
+    	print STDERR "Logging into $log_path\n";
+    
+        # Use our own context class
+        $self->ctx_class('DayDayUp::Context');
+    
+        # Routes
+        my $r = $self->routes;
+    
+        # route
+        $r->route('/notes/:id/:action', id => qr/\d+/)
+          ->to(controller => 'notes', action => 'index');
+    
+        # Default route
+        $r->route('/:controller/:action')
+          ->to(controller => 'index', action => 'index');
+    
+        my $tt = MojoX::Renderer::TT->build(
+            mojo => $self,
+            template_options => {
+                COMPILE_DIR  => File::Spec->tmpdir(),
+                POST_CHOMP   => 1,
+                PRE_CHOMP    => 1,
+                STASH        => Template::Stash::XS->new,
+                INCLUDE_PATH => [ $self->home->rel_dir('templates') ],
+                WRAPPER      => 'wrapper.html',
+            }
+        );
+        $self->renderer->add_handler( html => $tt );
+    }
+};
 
 1;
 __END__

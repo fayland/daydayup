@@ -6,13 +6,15 @@ abstract        ('DayDayUp - good good study, day day up');
 license         ('perl');
 version_from    ('lib/DayDayUp.pm');
 
-requires 'Mojo'     => '0.9';
+requires 'Mojo'     => '0.9002';
 requires 'Moose'    => '0.75';
 requires 'Template' => '2.20';
 requires 'Template::Plugin::FillInForm';
 requires 'MojoX::Renderer::TT' => '0.20';
 requires 'MojoX::Fixup::XHTML';
 requires 'KiokuDB'  => '0.27';
+requires 'KiokuDB::Backend::DBI';
+requires 'DBD::SQLite' => '1.25';
 requires 'MooseX::Declare' => '0.10';
 requires 'MooseX::Types';
 

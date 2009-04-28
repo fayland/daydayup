@@ -1,3 +1,19 @@
+use MooseX::Declare;
+
+class DayDayUp::Notes extends Mojolicious::Controller {
+    use MooseX::Types::Moose qw(Str);
+    
+    our $VERSION = '0.09';
+    
+    method index ($c) {
+        $c->render(template => 'index/index.html' );
+    }
+};
+
+1;
+
+=pod
+
 package DayDayUp::Notes;
 
 use strict;
