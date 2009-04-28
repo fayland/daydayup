@@ -54,8 +54,10 @@
 <tr>
 	<td>[% note.text | html | html_line_break %]</td>
 	<td>
+	    [% IF note.tag_set.size %]
 	    [% FOREACH tag IN note.tags %]
 	    [% tag.name %][% UNLESS loop.end %], [% END %]
+	    [% END %]
 	    [% END %]
 	</td>
 	<td>[% date.format( note.time, format => '%Y-%m-%d %H:%M:%S' ) %]</td>
