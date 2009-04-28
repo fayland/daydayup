@@ -21,9 +21,10 @@ class DayDayUp::Notes extends Mojolicious::Controller is mutable {
             }
         }
         
+        # sort by time DESC
         foreach my $key ( keys %$notes ) {
             $notes->{$key}
-                = [ sort { $a->time <=> $b->time } @{ $notes->{$key} } ];
+                = [ sort { $b->time <=> $a->time } @{ $notes->{$key} } ];
         }
 
         $c->render(template => 'notes/index.html', notes => $notes );
