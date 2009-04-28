@@ -5,13 +5,14 @@ role DayDayUpX::Role::WithTags {
     
     our $VERSION = '0.91';
     
-    use MooseX::Types::Set::Object;
+    use Set::Object;
+    use MooseX::Types::Moose qw(Object);
 
     has 'tag_set' => (
         is       => 'ro',
-        isa      => "Set::Object",
+        isa      => Object,
         required => 1,
-        default  => sub { [] },
+        default  => sub { Set::Object->new },
         handles  => {
             'tags'    => 'members',
             'add_tag' => 'insert',
