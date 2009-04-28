@@ -78,9 +78,9 @@ DayDayUp - good good study, day day up
 
 =head1 DESCRIPTION
 
-it's just a test with L<Mojo>
+it B<is> just a test with L<Mojo> + L<KiokuDB> + L<MooseX::Declare>
 
-but I don't mind if you use it in your localhost.
+but I do B<not> mind if you use it in your localhost (at your own risk).
 
 =head1 RUN
 
@@ -92,7 +92,7 @@ create a daydayup_local.yml at the same dir as daydayup.yml
 
 =head1 SEE ALSO
 
-L<Mojo>, L<Mojolicious>
+L<Mojo>, L<Mojolicious>, L<KiokuDB>, L<MooseX::Declare>
 
 =head1 AUTHOR
 
@@ -100,7 +100,7 @@ Fayland Lam < fayland at gmail dot com >
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2008 Fayland Lam, all rights reserved.
+Copyright 2008-2009 Fayland Lam, all rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
