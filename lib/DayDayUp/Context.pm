@@ -5,7 +5,7 @@ class DayDayUp::Context extends Mojolicious::Context is mutable {
     use YAML qw/LoadFile/;
     use KiokuDB;
     
-    our $VERSION = '0.90';
+    our $VERSION = '0.91';
     
     # shortcuts
     method log  { $self->app->log };

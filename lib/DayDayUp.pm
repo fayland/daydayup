@@ -4,7 +4,7 @@ use MooseX::Declare;
 
 class DayDayUp extends Mojolicious is mutable {
 
-    our $VERSION = '0.90';
+    our $VERSION = '0.91';
     
     use File::Spec ();
     use Template::Stash::XS ();

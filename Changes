@@ -1,6 +1,9 @@
 Revision history for DayDayUp
 
-0.10
+0.91
+
+0.90    2009.04.28
+    totally rewrite (based on KiokuDB+MooseX::Declare)
     change TT2 COMPILE_DIR to tmpdir
 
 0.09    2009.02.21
