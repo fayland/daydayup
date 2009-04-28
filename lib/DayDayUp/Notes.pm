@@ -37,7 +37,7 @@ class DayDayUp::Notes extends Mojolicious::Controller is mutable {
         my $params = $c->req->params->to_hash;
         
         my $note = DayDayUpX::Note->new(
-            text   => $params->{notes},
+            text   => $params->{text},
             status => 'open',
             time   => time()
         );
@@ -72,7 +72,7 @@ class DayDayUp::Notes extends Mojolicious::Controller is mutable {
         
         my $params = $c->req->params->to_hash;
         
-        $note->text( $params->{note} );
+        $note->text( $params->{text} );
         
         {
             my $scope = $kioku->new_scope;
