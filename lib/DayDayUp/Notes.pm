@@ -40,7 +40,7 @@ class DayDayUp::Notes extends Mojolicious::Controller is mutable {
         
         my $s = $c->kioku->new_scope;
         $c->kioku->txn_do(sub {
-            $self->kioku->store($note);
+            $c->kioku->store($note);
         });
 
         $c->render(template => 'redirect.html', url => '/notes/');
