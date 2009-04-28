@@ -3,7 +3,7 @@ use MooseX::Declare;
 class DayDayUpX::Note {
     use MooseX::Types::Moose qw(Str Int);
     use Moose::Util::TypeConstraints;
-    
+
     has 'text' => (
         is  => 'rw',
         isa => Str,
@@ -17,9 +17,8 @@ class DayDayUpX::Note {
         default => 'open',
     );
     
-    has 'time' => (
-        is => 'rw', isa => Int, required => 1
-    );
+    has 'time' => ( is => 'rw', isa => Int, required => 1 );
+    has 'closed_time' => ( is => 'rw', isa => Int, default => 0 );
 };
 
 1;
