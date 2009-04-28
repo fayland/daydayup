@@ -47,7 +47,7 @@ class DayDayUp extends Mojolicious is mutable {
         my $r = $self->routes;
     
         # route
-        $r->route('/notes/:id/:action', id => qr/\d+/)
+        $r->route('/notes/:id/:action', id => qr/\w+/)
           ->to(controller => 'notes', action => 'index');
     
         # Default route
