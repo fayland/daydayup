@@ -1,4 +1,4 @@
-package DayDayUp;
+package DayDayUp; # make CPAN happy
 
 use MooseX::Declare;
 
