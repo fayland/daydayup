@@ -3,6 +3,8 @@ package DayDayUpX::Note; # make CPAN happy
 use MooseX::Declare;
 
 class DayDayUpX::Note {
+    
+    our $VERSION = '0.93';
 
     use MooseX::Types::Moose qw(Str Int);
     use Moose::Util::TypeConstraints;

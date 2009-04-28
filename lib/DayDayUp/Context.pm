@@ -3,6 +3,9 @@ package DayDayUp::Context; # make CPAN happy
 use MooseX::Declare;
 
 class DayDayUp::Context extends Mojolicious::Context is mutable {
+    
+    our $VERSION = '0.93';
+    
     use MooseX::Types::Moose qw(Str);
     use YAML qw/LoadFile/;
     use KiokuDB;

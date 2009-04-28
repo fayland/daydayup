@@ -3,6 +3,9 @@ package DayDayUp::Notes; # make CPAN happy
 use MooseX::Declare;
 
 class DayDayUp::Notes extends Mojolicious::Controller is mutable {
+    
+    our $VERSION = '0.93';
+    
     use DayDayUpX::Note;
 
     method index ($c) {
