@@ -19,7 +19,6 @@ requires 'KiokuDB::Backend::DBI';
 requires 'DBD::SQLite' => '1.25';
 requires 'MooseX::Declare' => '0.10';
 requires 'MooseX::Types';
-requires 'MooseX::MultiMethods';
 
 tests ( join ' ', ( glob('t/*.t'), glob('t/*/*.t') ) );
 
