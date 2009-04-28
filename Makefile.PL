@@ -14,6 +14,7 @@ requires 'MojoX::Renderer::TT' => '0.20';
 requires 'MojoX::Fixup::XHTML';
 requires 'KiokuDB'  => '0.27';
 requires 'KiokuDB::Backend::DBI';
+requires 'Search::GIN';
 requires 'DBD::SQLite' => '1.25';
 requires 'MooseX::Declare' => '0.10';
 requires 'MooseX::Types';

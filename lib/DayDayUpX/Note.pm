@@ -16,7 +16,7 @@ class DayDayUpX::Note {
     );
     
     has 'time' => (
-        is => 'rw', isa => Int
+        is => 'rw', isa => Int, required => 1
     );
 };
 

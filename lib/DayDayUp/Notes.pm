@@ -1,13 +1,42 @@
 use MooseX::Declare;
 
 class DayDayUp::Notes extends Mojolicious::Controller is mutable {
-    use MooseX::Types::Moose qw(Str);
+    use DayDayUpX::Note;
     
     our $VERSION = '0.09';
     
     method index ($c) {
-        $c->render(template => 'index/index.html' );
-    }
+        
+        my $stream = $c->kioku->all_entries;
+        
+        $c->render(template => 'notes/index.html', stream => $stream );
+    };
+    
+    method add ($c) {
+        
+        my $stash = {
+            template => 'notes/add.html',
+        };
+        unless ( $c->req->method eq 'POST' ) {
+            return $c->render( $stash );
+        }
+        
+        my $config = $c->config;
+        my $params = $c->req->params->to_hash;
+        
+        my $note = DayDayUpX::Note->new(
+            text   => $params->{notes},
+            status => 'open',
+            time   => time()
+        );
+        
+        my $s = $c->kioku->new_scope;
+        $c->kioku->txn_do(sub {
+            $self->kioku->store($note);
+        });
+
+        $c->render(template => 'redirect.html', url => '/notes/');
+    };
 };
 
 1;
