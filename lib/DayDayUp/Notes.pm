@@ -7,9 +7,17 @@ class DayDayUp::Notes extends Mojolicious::Controller is mutable {
     
     method index ($c) {
         
-        my $stream = $c->kioku->all_entries;
-        
-        $c->render(template => 'notes/index.html', stream => $stream );
+        my $notes;
+        my $all = $c->kioku->backend->all_entries;
+        while( my $chunk = $all->next ){
+            entry: for my $id (@$chunk) {
+                my $entry = $kioku->lookup($id->id);
+                next entry unless blessed $entry && $entry->isa('DayDayUpX::Note');
+                push @{ $notes->{ $entry->status} }, $entry;
+            }
+        }
+
+        $c->render(template => 'notes/index.html', notes => $notes );
     };
     
     method add ($c) {
