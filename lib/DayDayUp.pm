@@ -4,7 +4,7 @@ use MooseX::Declare;
 
 class DayDayUp extends Mojolicious is mutable {
 
-    our $VERSION = '0.09';
+    our $VERSION = '0.90';
     
     use File::Spec ();
     use Template::Stash::XS ();
@@ -12,7 +12,7 @@ class DayDayUp extends Mojolicious is mutable {
     use MojoX::Fixup::XHTML;
     
     # This method will run for each request
-    method dispatch (Object $c) {
+    method dispatch ($c) {
 
         # Try to find a static file
         my $done = $self->static->dispatch($c);
