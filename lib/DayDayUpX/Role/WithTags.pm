@@ -5,22 +5,18 @@ role DayDayUpX::Role::WithTags {
     
     our $VERSION = '0.91';
     
-    use KiokuDB::Util qw(weak_set);
-    use MooseX::Types::Moose qw(Object);
+    use MooseX::Types::Set::Object;
 
     has 'tag_set' => (
         is       => 'ro',
-        isa      => Object,
+        isa      => "Set::Object",
         required => 1,
-        default  => sub { weak_set() },
+        default  => sub { [] },
         handles  => {
             'tags'    => 'members',
+            'add_tag' => 'insert',
         },
     );
-
-    method add_tag($tag) {
-        $self->tag_set->insert($tag);
-    }
 }
 
 1;
