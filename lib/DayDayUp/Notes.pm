@@ -8,10 +8,13 @@ class DayDayUp::Notes extends Mojolicious::Controller is mutable {
     method index ($c) {
         
         my $notes;
-        my $all = $c->kioku->backend->all_entries;
+        
+        my $kioku = $c->kioku;
+        my $scope = $kioku->new_scope;
+        my $all = $kioku->backend->all_entries;
         while( my $chunk = $all->next ){
             entry: for my $id (@$chunk) {
-                my $entry = $c->kioku->lookup($id->id);
+                my $entry = $kioku->lookup($id->id);
                 next entry unless blessed $entry && $entry->isa('DayDayUpX::Note');
                 push @{ $notes->{ $entry->status} }, $entry;
             }
