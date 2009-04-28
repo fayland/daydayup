@@ -50,7 +50,8 @@ class DayDayUp::Notes extends Mojolicious::Controller is mutable {
         );
         
         foreach my $tag_name ( split(/\s+/, $params->{tags} ) ) {
-            $note->add_tag( DayDayUpX::Tag->new( name => $tag_name ) );
+            my $tag = DayDayUpX::Tag->new( name => $tag_name );
+            $note->add_tag( $tag );
         }
         
         my $scope = $c->kioku->new_scope;
