@@ -33,7 +33,8 @@ class DayDayUp::Context extends Mojolicious::Context is mutable {
     method _build_kioku {
         my $config  = $self->config;
         my @kioku_config = $config->{kioku} ? @{ $config->{kioku} } : (
-            "dbi:SQLite:dbname=" . $self->home->rel_file( lc($self->app_class) . '.sqlite' )
+            "dbi:SQLite:dbname=" . $self->home->rel_file( lc($self->app_class) . '.sqlite' ),
+            create => 1
         );
         return KiokuDB->connect(@kioku_config);
     }
