@@ -6,6 +6,8 @@ abstract        ('DayDayUp - good good study, day day up');
 license         ('perl');
 version_from    ('lib/DayDayUp.pm');
 
+repository 'http://github.com/fayland/daydayup/tree/master';
+
 requires 'Mojo'     => '0.9002';
 requires 'Moose'    => '0.75';
 requires 'Template' => '2.20';
