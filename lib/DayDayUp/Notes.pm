@@ -1,6 +1,6 @@
 use MooseX::Declare;
 
-class DayDayUp::Notes extends Mojolicious::Controller {
+class DayDayUp::Notes extends Mojolicious::Controller is mutable {
     use MooseX::Types::Moose qw(Str);
     
     our $VERSION = '0.09';

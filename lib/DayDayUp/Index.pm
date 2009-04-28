@@ -1,6 +1,6 @@
 use MooseX::Declare;
 
-class DayDayUp::Index extends Mojolicious::Controller {
+class DayDayUp::Index extends Mojolicious::Controller is mutable {
 
     our $VERSION = '0.09';
     

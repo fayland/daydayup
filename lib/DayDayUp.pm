@@ -2,7 +2,7 @@ package DayDayUp;
 
 use MooseX::Declare;
 
-class DayDayUp extends Mojolicious {
+class DayDayUp extends Mojolicious is mutable {
 
     our $VERSION = '0.09';
     
