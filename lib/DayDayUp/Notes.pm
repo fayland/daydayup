@@ -148,7 +148,6 @@ class DayDayUp::Notes extends Mojolicious::Controller is mutable {
     		notes => { $status => $notes },
     		is_in_view_all_page => 1,
     		status => $status,
-    		levels => \%levels
     	);
     }
 };
