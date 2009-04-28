@@ -15,32 +15,15 @@ class DayDayUp::Notes extends Mojolicious::Controller is mutable {
         
         my $kioku = $c->kioku;
         my $scope = $kioku->new_scope;
-        
-        # try search
-        my $query = Search::GIN::Query::Class->new(
-            isa => 'DayDayUpX::Note',
-        );
-        
-        # get results
-        my $results = $kioku->search($query);
-        while( my $chunk = $results->next ){
-            for my $id (@$chunk){
+        my $all = $kioku->backend->all_entries;
+        while( my $chunk = $all->next ){
+            entry: for my $id (@$chunk) {
                 my $entry = $kioku->lookup($id->id);
+                next entry unless blessed $entry && $entry->isa('DayDayUpX::Note');
                 $entry->{id} = $id->id; # hack
                 push @{ $notes->{ $entry->status} }, $entry;
             }
         }
-
-
-#        my $all = $kioku->backend->all_entries;
-#        while( my $chunk = $all->next ){
-#            entry: for my $id (@$chunk) {
-#                my $entry = $kioku->lookup($id->id);
-#                next entry unless blessed $entry && $entry->isa('DayDayUpX::Note');
-#                $entry->{id} = $id->id; # hack
-#                push @{ $notes->{ $entry->status} }, $entry;
-#            }
-#        }
 
         # sort by time DESC
         foreach my $key ( keys %$notes ) {
