@@ -4,6 +4,8 @@ class DayDayUpX::Note {
     use MooseX::Types::Moose qw(Str Int);
     use Moose::Util::TypeConstraints;
 
+    
+
     has 'text' => (
         is  => 'rw',
         isa => Str,

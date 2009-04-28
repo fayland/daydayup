@@ -16,6 +16,7 @@ class DayDayUp::Notes extends Mojolicious::Controller is mutable {
             entry: for my $id (@$chunk) {
                 my $entry = $kioku->lookup($id->id);
                 next entry unless blessed $entry && $entry->isa('DayDayUpX::Note');
+                $entry->{id} = $id->id; # hack
                 push @{ $notes->{ $entry->status} }, $entry;
             }
         }
@@ -137,6 +138,7 @@ class DayDayUp::Notes extends Mojolicious::Controller is mutable {
             entry: for my $id (@$chunk) {
                 my $entry = $kioku->lookup($id->id);
                 next entry unless blessed $entry && $entry->isa('DayDayUpX::Note');
+                $entry->{id} = $id->id; # hack
                 push @{ $notes }, $entry if $entry->status eq $status;
             }
         }
