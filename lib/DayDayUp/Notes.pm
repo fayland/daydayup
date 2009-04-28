@@ -49,7 +49,7 @@ class DayDayUp::Notes extends Mojolicious::Controller is mutable {
             time   => time()
         );
         
-        foreach my $tag_name ( split(/\s+/, $params->{tags} ) {
+        foreach my $tag_name ( split(/\s+/, $params->{tags} ) ) {
             $note->add_tag( DayDayUpX::Tag->new( name => $tag_name ) );
         }
         
