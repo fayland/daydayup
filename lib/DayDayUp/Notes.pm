@@ -41,7 +41,7 @@ class DayDayUp::Notes extends Mojolicious::Controller is mutable {
             time   => time()
         );
         
-        my $s = $c->kioku->new_scope;
+        my $scope = $c->kioku->new_scope;
         $c->kioku->txn_do(sub {
             $c->kioku->store($note);
         });
@@ -54,35 +54,32 @@ class DayDayUp::Notes extends Mojolicious::Controller is mutable {
         my $captures = $c->match->captures;
         my $id = $captures->{id};
         
-        my $dbh = $c->dbh;
-        
-        # get the note
-        my $sql = q~SELECT * FROM notes WHERE note_id = ?~;
-        my $sth = $dbh->prepare($sql);
-        $sth->execute( $id );
-        my $note = $sth->fetchrow_hashref;
-        
+        my $kioku = $c->kioku;
+        my $scope = $kioku->new_scope;
+        my $note  = $kioku->lookup($id);
+
         my $stash = {
             template => 'notes/add.html',
-            levels   => \%levels,
         };
         unless ( $c->req->method eq 'POST' ) {
         	# pre-fulfill
         	$stash->{fif} = {
-        		level => $note->{level},
-        		notes => $note->{note},
+        		text => $note->text,
         	};
             return $c->render( $stash );
         }
         
         my $params = $c->req->params->to_hash;
         
-        my $notes = $params->{notes};
-        my $level = $params->{level};
-        $sql = q~UPDATE notes SET note = ?, level = ? WHERE note_id = ?~;
-        $sth = $dbh->prepare($sql);
-        $sth->execute( $notes, $level, $id );
+        $note->text( $params->{note} );
         
+        {
+            my $scope = $kioku->new_scope;
+            $kioku->txn_do(sub {
+                $kioku->update($note);
+            });
+        }
+
         $c->render(template => 'redirect.html', url => '/notes/');
     }
 };
