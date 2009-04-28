@@ -1,6 +1,7 @@
 Revision history for DayDayUp
 
 0.91
+    Tag support
 
 0.90    2009.04.28
     totally rewrite (based on KiokuDB+MooseX::Declare)

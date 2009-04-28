@@ -2,6 +2,7 @@ use MooseX::Declare;
 
 class DayDayUp::Notes extends Mojolicious::Controller is mutable {
     use DayDayUpX::Note;
+    use DayDayUpX::Tag;
     
     our $VERSION = '0.91';
     
@@ -47,6 +48,10 @@ class DayDayUp::Notes extends Mojolicious::Controller is mutable {
             status => 'open',
             time   => time()
         );
+        
+        foreach my $tag_name ( split(/\s+/, $params->{tags} ) {
+            $note->add_tag( DayDayUpX::Tag->new( name => $tag_name ) );
+        }
         
         my $scope = $c->kioku->new_scope;
         $c->kioku->txn_do(sub {

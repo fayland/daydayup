@@ -1,6 +1,6 @@
 use MooseX::Declare;
 
-class DayDayUpX::Note {
+class DayDayUpX::Note with DayDayUpX::Role::WithTags {
     
     our $VERSION = '0.91';
     
