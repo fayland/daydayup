@@ -10,8 +10,7 @@
 <table border='1'>
 [% FOREACH note IN notes.open %]
 <tr>
-	<td>[% levels.${note.level} %]</td>
-	<td>[% note.note | html | html_line_break %]</td>
+	<td>[% note.text | html | html_line_break %]</td>
 	<td>[% date.format( note.time, format => '%Y-%m-%d %H:%M:%S' ) %]</td>
 	<td><a href="/notes/[% note.note_id %]/edit">Edit</a> | <a href="/notes/[% note.note_id %]/delete">Delete</a> | <a href="/notes/[% note.note_id %]/update?status=closed">Close</a> | <a href="/notes/[% note.note_id %]/update?status=suspended">Suspend</a> | <a href="/notes/[% note.note_id %]/update?status=rejected">Reject</a></td>
 </tr>
@@ -30,8 +29,7 @@
 <table border='1'>
 [% FOREACH note IN notes.suspended %]
 <tr>
-	<td>[% levels.${note.level} %]</td>
-	<td>[% note.note | html | html_line_break %]</td>
+	<td>[% note.text | html | html_line_break %]</td>
 	<td>[% date.format( note.time, format => '%Y-%m-%d %H:%M:%S' ) %]</td>
 	<td><a href="/notes/[% note.note_id %]/edit">Edit</a> | <a href="/notes/[% note.note_id %]/delete">Delete</a> | <a href="/notes/[% note.note_id %]/update?status=closed">Close</a> | <a href="/notes/[% note.note_id %]/update?status=open">Open</a> | <a href="/notes/[% note.note_id %]/update?status=rejected">Reject</a></td>
 </tr>
@@ -51,11 +49,10 @@
 [% IF notes.closed.size %]
 
 <table border='1'>
-<tr><th>Level</th><th>Note</th><th>Created Time</th><th>Closed Time</th><th>-</th></tr>
+<tr><th>Note</th><th>Created Time</th><th>Closed Time</th><th>-</th></tr>
 [% FOREACH note IN notes.closed %]
 <tr>
-	<td>[% levels.${note.level} %]</td>
-	<td>[% note.note | html | html_line_break %]</td>
+	<td>[% note.text | html | html_line_break %]</td>
 	<td>[% date.format( note.time, format => '%Y-%m-%d %H:%M:%S' ) %]</td>
 	<td>[% date.format( note.closed_time, format => '%Y-%m-%d %H:%M:%S' ) %]</td>
 	<td><a href="/notes/[% note.note_id %]/edit">Edit</a> | <a href="/notes/[% note.note_id %]/delete">Delete</a> | <a href="/notes/[% note.note_id %]/update?status=open">re-Open</a></td>
@@ -79,11 +76,10 @@
 [% IF notes.rejected.size %]
 
 <table border='1'>
-<tr><th>Level</th><th>Note</th><th>Created Time</th><th>Closed Time</th><th>-</th></tr>
+<tr><th>Note</th><th>Created Time</th><th>Closed Time</th><th>-</th></tr>
 [% FOREACH note IN notes.rejected %]
 <tr>
-	<td>[% levels.${note.level} %]</td>
-	<td>[% note.note | html | html_line_break %]</td>
+	<td>[% note.text | html | html_line_break %]</td>
 	<td>[% date.format( note.time, format => '%Y-%m-%d %H:%M:%S' ) %]</td>
 	<td>[% date.format( note.closed_time, format => '%Y-%m-%d %H:%M:%S' ) %]</td>
 	<td><a href="/notes/[% note.note_id %]/edit">Edit</a> | <a href="/notes/[% note.note_id %]/delete">Delete</a> | <a href="/notes/[% note.note_id %]/update?status=open">re-Open</a> | <a href="/notes/[% note.note_id %]/update?status=closed">Close</a></td>
