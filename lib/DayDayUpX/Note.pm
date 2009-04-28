@@ -1,7 +1,8 @@
 use MooseX::Declare;
 
 class DayDayUpX::Note {
-    use MooseX::Types::Moose qw(Str Int Enum);
+    use MooseX::Types::Moose qw(Str Int);
+    use Moose::Util::TypeConstraints;
     
     has 'text' => (
         is  => 'rw',
@@ -9,9 +10,10 @@ class DayDayUpX::Note {
         required => 1,
     );
     
+    enum 'NoteStatus' => qw(open closed rejected suspended);
     has 'status' => (
         is  => 'rw',
-        isa => Enum([qw(open closed rejected suspended)]),
+        isa => 'NoteStatus',
         default => 'open',
     );
     
