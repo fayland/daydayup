@@ -1,3 +1,4 @@
+.mxdeclare_project
 bin/day_day_up
 Changes
 daydayup.yml
@@ -18,7 +19,6 @@ lib/DayDayUp/Context.pm
 lib/DayDayUp/Index.pm
 lib/DayDayUp/Notes.pm
 lib/DayDayUpX/Note.pm
-lib/DayDayUpX/Tag.pm
 Makefile.PL
 MANIFEST			This list of files
 META.yml
