@@ -8,6 +8,7 @@
 [% IF notes.open.size %]
 
 <table border='1'>
+<tr><th>Note</th><th>Tags</th><th>Created Time</th><th>Closed Time</th><th>-</th></tr>
 [% FOREACH note IN notes.open %]
 <tr>
 	<td>[% note.text | html | html_line_break %]</td>
@@ -33,6 +34,7 @@
 [% IF notes.suspended.size %]
 
 <table border='1'>
+<tr><th>Note</th><th>Tags</th><th>Created Time</th><th>Closed Time</th><th>-</th></tr>
 [% FOREACH note IN notes.suspended %]
 <tr>
 	<td>[% note.text | html | html_line_break %]</td>
