@@ -4,7 +4,7 @@ use MooseX::Declare;
 
 class DayDayUp::Notes extends Mojolicious::Controller is mutable {
     
-    our $VERSION = '0.93';
+    our $VERSION = '0.94';
     
     use DayDayUpX::Note;
     use Search::GIN::Query::Class;
@@ -45,13 +45,16 @@ class DayDayUp::Notes extends Mojolicious::Controller is mutable {
         
         my $config = $c->config;
         my $params = $c->req->params->to_hash;
-        
+
         my $note = DayDayUpX::Note->new(
             text   => $params->{text},
             status => 'open',
-            time   => time()
+            time   => time(),
         );
-        
+        foreach my $tag ( split(/\s+/, $params->{tags}) ) {
+            $note->add_tag( $tag );
+        }
+
         my $scope = $c->kioku->new_scope;
         $c->kioku->txn_do(sub {
             $c->kioku->insert($note);
@@ -83,6 +86,10 @@ class DayDayUp::Notes extends Mojolicious::Controller is mutable {
         my $params = $c->req->params->to_hash;
         
         $note->text( $params->{text} );
+        $note->clear_tags;
+        foreach my $tag ( split(/\s+/, $params->{tags}) ) {
+            $note->add_tag( $tag );
+        }
         
         {
             my $scope = $kioku->new_scope;

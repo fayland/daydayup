@@ -4,7 +4,7 @@ use MooseX::Declare;
 
 class DayDayUp::Context extends Mojolicious::Context is mutable {
     
-    our $VERSION = '0.93';
+    our $VERSION = '0.94';
     
     use MooseX::Types::Moose qw(Str);
     use YAML qw/LoadFile/;

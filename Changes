@@ -1,5 +1,8 @@
 Revision history for DayDayUp
 
+0.94
+    Tags
+
 0.93    2009.04.28
     CPAN dist fix (Not indexed because DayDayUp-0.09/lib/DayDayUp/Context.pm
             in F/FA/FAYLAND/DayDayUp-0.09.tar.gz has a higher version
