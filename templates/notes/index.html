@@ -11,7 +11,9 @@
 [% FOREACH note IN notes.open %]
 <tr>
 	<td>[% note.text | html | html_line_break %]</td>
-	<td>[% IF note.tags.size %][% note.tags.join(', ') %][% END %]</td>
+	<td>[% IF note.tags.size %]
+	        [% FOREACH tag IN note.tags; tag.name _ ', '; END; %]
+	    [% END %]</td>
 	<td>[% date.format( note.time, format => '%Y-%m-%d %H:%M:%S' ) %]</td>
 	<td><a href="/notes/[% note.id %]/edit">Edit</a> | <a href="/notes/[% note.id %]/delete">Delete</a> | <a href="/notes/[% note.id %]/update?status=closed">Close</a> | <a href="/notes/[% note.id %]/update?status=suspended">Suspend</a> | <a href="/notes/[% note.id %]/update?status=rejected">Reject</a></td>
 </tr>
@@ -31,7 +33,9 @@
 [% FOREACH note IN notes.suspended %]
 <tr>
 	<td>[% note.text | html | html_line_break %]</td>
-	<td>[% IF note.tags.size %][% note.tags.join(', ') %][% END %]</td>
+	<td>[% IF note.tags.size %]
+	        [% FOREACH tag IN note.tags; tag.name _ ', '; END; %]
+	    [% END %]</td>
 	<td>[% date.format( note.time, format => '%Y-%m-%d %H:%M:%S' ) %]</td>
 	<td><a href="/notes/[% note.id %]/edit">Edit</a> | <a href="/notes/[% note.id %]/delete">Delete</a> | <a href="/notes/[% note.id %]/update?status=closed">Close</a> | <a href="/notes/[% note.id %]/update?status=open">Open</a> | <a href="/notes/[% note.id %]/update?status=rejected">Reject</a></td>
 </tr>
@@ -55,7 +59,9 @@
 [% FOREACH note IN notes.closed %]
 <tr>
 	<td>[% note.text | html | html_line_break %]</td>
-	<td>[% IF note.tags.size %][% note.tags.join(', ') %][% END %]</td>
+	<td>[% IF note.tags.size %]
+	        [% FOREACH tag IN note.tags; tag.name _ ', '; END; %]
+	    [% END %]</td>
 	<td>[% date.format( note.time, format => '%Y-%m-%d %H:%M:%S' ) %]</td>
 	<td>[% date.format( note.closed_time, format => '%Y-%m-%d %H:%M:%S' ) %]</td>
 	<td><a href="/notes/[% note.id %]/edit">Edit</a> | <a href="/notes/[% note.id %]/delete">Delete</a> | <a href="/notes/[% note.id %]/update?status=open">re-Open</a></td>
@@ -83,7 +89,9 @@
 [% FOREACH note IN notes.rejected %]
 <tr>
 	<td>[% note.text | html | html_line_break %]</td>
-	<td>[% IF note.tags.size %][% note.tags.join(', ') %][% END %]</td>
+	<td>[% IF note.tags.size %]
+	        [% FOREACH tag IN note.tags; tag.name _ ', '; END; %]
+	    [% END %]</td>
 	<td>[% date.format( note.time, format => '%Y-%m-%d %H:%M:%S' ) %]</td>
 	<td>[% date.format( note.closed_time, format => '%Y-%m-%d %H:%M:%S' ) %]</td>
 	<td><a href="/notes/[% note.id %]/edit">Edit</a> | <a href="/notes/[% note.id %]/delete">Delete</a> | <a href="/notes/[% note.id %]/update?status=open">re-Open</a> | <a href="/notes/[% note.id %]/update?status=closed">Close</a></td>
