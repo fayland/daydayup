@@ -52,7 +52,7 @@ class DayDayUp extends Mojolicious is mutable {
     
         # Default route
         $r->route('/:controller/:action')
-          ->to(controller => 'index', action => 'index');
+          ->to(controller => 'notes', action => 'index');
     
         my $tt = MojoX::Renderer::TT->build(
             mojo => $self,
