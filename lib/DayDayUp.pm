@@ -11,6 +11,10 @@ class DayDayUp extends Mojolicious with DayDayUp::Extra is mutable {
     use MojoX::Renderer::TT;
     use MojoX::Fixup::XHTML;
 
+    after dispatch($c) {
+        MojoX::Fixup::XHTML->fix_xhtml( $c );
+    }
+
     # This method will run once at server start
     method startup {
 
