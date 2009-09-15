@@ -4,7 +4,7 @@ use MooseX::Declare;
 
 class DayDayUp::Controller extends Mojolicious::Controller is mutable {
     
-    our $VERSION = '0.94';
+    our $VERSION = '0.95';
 
     method render_tt($template) {
         $self->stash->{template_path} = $template;

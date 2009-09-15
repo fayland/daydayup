@@ -4,7 +4,7 @@ use MooseX::Declare;
 
 role DayDayUp::Extra {
     
-    our $VERSION = '0.94';
+    our $VERSION = '0.95';
     
     use MooseX::Types::Moose qw(Str);
     use YAML qw/LoadFile/;
