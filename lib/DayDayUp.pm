@@ -2,7 +2,7 @@ package DayDayUp; # make CPAN happy
 
 use MooseX::Declare;
 
-class DayDayUp extends Mojolicious is mutable {
+class DayDayUp extends Mojolicious with DayDayUp::Extra is mutable {
 
     our $VERSION = '0.94';
     
@@ -10,28 +10,7 @@ class DayDayUp extends Mojolicious is mutable {
     use Template::Stash::XS ();
     use MojoX::Renderer::TT;
     use MojoX::Fixup::XHTML;
-    
-    # This method will run for each request
-    method dispatch ($c) {
 
-        # Try to find a static file
-        my $done = $self->static->dispatch($c);
-    
-        # Use routes if we don't have a response code yet
-        unless ( $done ) {
-            $done = $self->routes->dispatch($c);
-            if ( $done ) {
-                MojoX::Fixup::XHTML->fix_xhtml( $c );
-            }
-        }
-    
-        # Nothing found, serve static file "public/404.html"
-        unless ($done) {
-            $self->static->serve($c, '/404.html');
-            $c->res->code(404);
-        }
-    };
-    
     # This method will run once at server start
     method startup {
 
@@ -39,10 +18,7 @@ class DayDayUp extends Mojolicious is mutable {
     	my $log_path = File::Spec->catfile(File::Spec->tmpdir(), 'daydayup.log');
     	$self->log->path( $log_path );
     	print STDERR "Logging into $log_path\n";
-    
-        # Use our own context class
-        $self->ctx_class('DayDayUp::Context');
-    
+
         # Routes
         my $r = $self->routes;
     

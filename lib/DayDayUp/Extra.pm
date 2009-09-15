@@ -1,8 +1,8 @@
-package DayDayUp::Context; # make CPAN happy
+package DayDayUp::Extra; # make CPAN happy
 
 use MooseX::Declare;
 
-class DayDayUp::Context extends Mojolicious::Context is mutable {
+role DayDayUp::Extra {
     
     our $VERSION = '0.94';
     
@@ -11,8 +11,6 @@ class DayDayUp::Context extends Mojolicious::Context is mutable {
     use KiokuDB;
 
     # shortcuts
-    method log  { $self->app->log };
-    method home { $self->app->home };
     method app_class { $self->home->app_class };
     
     # config

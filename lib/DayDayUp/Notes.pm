@@ -2,18 +2,18 @@ package DayDayUp::Notes; # make CPAN happy
 
 use MooseX::Declare;
 
-class DayDayUp::Notes extends Mojolicious::Controller is mutable {
+class DayDayUp::Notes extends DayDayUp::Controller is mutable {
     
     our $VERSION = '0.94';
     
     use DayDayUpX::Note;
     use Search::GIN::Query::Class;
 
-    method index ($c) {
+    method index {
         
         my $notes;
         
-        my $kioku = $c->kioku;
+        my $kioku = $self->app->kioku;
         my $scope = $kioku->new_scope;
         my $all = $kioku->backend->all_entries;
         while( my $chunk = $all->next ){
@@ -30,21 +30,18 @@ class DayDayUp::Notes extends Mojolicious::Controller is mutable {
             $notes->{$key}
                 = [ sort { $b->time <=> $a->time } @{ $notes->{$key} } ];
         }
-
-        $c->render(template => 'notes/index.html', notes => $notes );
+        $self->stash->{notes} = $notes;
+        $self->render_tt( 'notes/index.html' );
     };
     
-    method add ($c) {
-        
-        my $stash = {
-            template => 'notes/add.html',
-        };
-        unless ( $c->req->method eq 'POST' ) {
-            return $c->render( $stash );
+    method add {
+
+        unless ( $self->req->method eq 'POST' ) {
+            return $self->render_tt( 'notes/add.html' );
         }
         
-        my $config = $c->config;
-        my $params = $c->req->params->to_hash;
+        my $config = $self->app->config;
+        my $params = $self->req->params->to_hash;
 
         my $note = DayDayUpX::Note->new(
             text   => $params->{text},
@@ -55,35 +52,32 @@ class DayDayUp::Notes extends Mojolicious::Controller is mutable {
             $note->add_tag( $tag );
         }
 
-        my $scope = $c->kioku->new_scope;
-        $c->kioku->txn_do(sub {
-            $c->kioku->insert($note);
+        my $scope = $self->app->kioku->new_scope;
+        $self->app->kioku->txn_do(sub {
+            $self->app->kioku->insert($note);
         });
 
-        $c->render(template => 'redirect.html', url => '/notes/');
+        $self->redirect_tt( '/notes' );
     };
     
-    method edit ($c) {
+    method edit {
 
-        my $captures = $c->match->captures;
+        my $captures = $self->match->captures;
         my $id = $captures->{id};
         
-        my $kioku = $c->kioku;
+        my $kioku = $self->app->kioku;
         my $scope = $kioku->new_scope;
         my $note  = $kioku->lookup($id);
 
-        my $stash = {
-            template => 'notes/add.html',
-        };
-        unless ( $c->req->method eq 'POST' ) {
+        unless ( $self->req->method eq 'POST' ) {
         	# pre-fulfill
-        	$stash->{fif} = {
+        	$self->stash->{fif} = {
         		text => $note->text,
         	};
-            return $c->render( $stash );
+            return $self->render_tt( 'notes/add.html' );
         }
         
-        my $params = $c->req->params->to_hash;
+        my $params = $self->req->params->to_hash;
         
         $note->text( $params->{text} );
         $note->clear_tags;
@@ -98,29 +92,29 @@ class DayDayUp::Notes extends Mojolicious::Controller is mutable {
             });
         }
 
-        $c->render(template => 'redirect.html', url => '/notes/');
+        $self->redirect_tt( '/notes' );
     };
     
-    method delete ($c) {
+    method delete {
 
-        my $captures = $c->match->captures;
+        my $captures = $self->match->captures;
         my $id = $captures->{id};
         
-        my $kioku = $c->kioku;
+        my $kioku = $self->app->kioku;
         my $scope = $kioku->new_scope;
         $kioku->delete($id);
 
-        $c->render(template => 'redirect.html', url => '/notes/');
+        $self->redirect_tt( '/notes' );
     };
     
-    method update ($c) {
+    method update {
     	
-    	my $captures = $c->match->captures;
+    	my $captures = $self->match->captures;
         my $id = $captures->{id};
         
-        my $params = $c->req->params->to_hash;
+        my $params = $self->req->params->to_hash;
         
-        my $kioku = $c->kioku;
+        my $kioku = $self->app->kioku;
         my $scope = $kioku->new_scope;
         my $note  = $kioku->lookup($id);
         
@@ -139,16 +133,16 @@ class DayDayUp::Notes extends Mojolicious::Controller is mutable {
             });
         }
         
-        $c->render(template => 'redirect.html', url => '/notes/');
+        $self->redirect_tt( '/notes' );
     };
     
-    method view_all ($c) {
+    method view_all {
 
-    	my $params = $c->req->params->to_hash;
+    	my $params = $self->req->params->to_hash;
     	my $status = $params->{status};
         
         my $notes;
-        my $kioku = $c->kioku;
+        my $kioku = $self->app->kioku;
         my $scope = $kioku->new_scope;
         my $all = $kioku->backend->all_entries;
         while( my $chunk = $all->next ){
@@ -160,12 +154,12 @@ class DayDayUp::Notes extends Mojolicious::Controller is mutable {
             }
         }
 
-        $c->render(
-    		template => 'notes/index.html',
+        $self->stash( {
     		notes => { $status => $notes },
     		is_in_view_all_page => 1,
     		status => $status,
-    	);
+    	} );
+    	$self->render_tt( 'notes/index.html' );
     }
 };
 
