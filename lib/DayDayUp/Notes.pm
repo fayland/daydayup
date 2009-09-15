@@ -52,9 +52,10 @@ class DayDayUp::Notes extends DayDayUp::Controller is mutable {
             $note->add_tag( $tag );
         }
 
-        my $scope = $self->app->kioku->new_scope;
-        $self->app->kioku->txn_do(sub {
-            $self->app->kioku->insert($note);
+        my $kioku = $self->app->kioku;
+        my $scope = $kioku->new_scope;
+        $kioku->txn_do(sub {
+            $kioku->insert($note);
         });
 
         $self->redirect_tt( '/notes' );
