@@ -21,6 +21,8 @@ requires 'MooseX::Declare' => '0.30';
 requires 'MooseX::Types' => '0.20';
 requires 'YAML';
 
+test_requires 'Test::More';
+
 tests ( join ' ', ( glob('t/*.t'), glob('t/*/*.t') ) );
 
 install_script glob('bin/*.pl');
