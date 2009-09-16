@@ -7,7 +7,6 @@ class DayDayUp::Notes extends DayDayUp::Controller is mutable {
     our $VERSION = '0.95';
     
     use DayDayUpX::Note;
-    use Search::GIN::Query::Class;
 
     method index {
         
