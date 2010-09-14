@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
+use FindBin qw/$Bin/;
 use Plack::Handler::FCGI;
 
-my $app = do('/home/faylandfoorum/daydayup.fayland.org/DayDayUp/DayDayUp.pl');
+my $app = do("$Bin/../DayDayUp.pl");
 my $server = Plack::Handler::FCGI->new(nproc  => 5, detach => 1);
 $server->run($app);

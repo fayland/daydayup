@@ -1,3 +1,4 @@
 #!/usr/bin/env perl
+use FindBin qw/$Bin/;
 use Plack::Runner;
-Plack::Runner->run('/home/faylandfoorum/daydayup.fayland.org/DayDayUp/DayDayUp.pl');
+Plack::Runner->run("$Bin/../DayDayUp.pl");
