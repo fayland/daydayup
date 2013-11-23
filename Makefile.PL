@@ -1,22 +1,31 @@
-use strict;
-use warnings;
-use ExtUtils::MakeMaker;
+use inc::Module::Install;
 
-WriteMakefile(
-    NAME                => 'DayDayUp',
-    AUTHOR              => q{YOUR NAME <youremail@example.com>},
-    VERSION_FROM        => 'lib/DayDayUp.pm',
-    ABSTRACT            => 'YOUR APPLICATION ABSTRACT',
-    ($ExtUtils::MakeMaker::VERSION >= 6.3002
-      ? ('LICENSE'=> 'perl')
-      : ()),
-    PL_FILES            => {},
-    PREREQ_PM => {
-        'Test::More' => 0,
-        'YAML'       => 0,
-        'Dancer'     => 1.1811,
-        'Template'   => 0,
-    },
-    dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
-    clean               => { FILES => 'DayDayUp-*' },
-);
+name            ('DayDayUp');
+author          ('Fayland Lam<fayland@gmail.com>');
+abstract        ('DayDayUp - good good study, day day up');
+license         ('perl');
+version_from    ('lib/DayDayUp.pm');
+
+repository 'http://github.com/fayland/daydayup/tree/master';
+
+requires 'Mojo'     => '0.991251';
+requires 'Moose'    => '0.89';
+requires 'Template' => '2.20';
+requires 'Template::Plugin::FillInForm';
+requires 'MojoX::Renderer::TT' => '0.31';
+requires 'MojoX::Fixup::XHTML';
+requires 'KiokuDB'  => '0.32';
+requires 'KiokuDB::Backend::DBI' => '0.07';
+requires 'DBD::SQLite' => '1.25';
+requires 'MooseX::Declare' => '0.30';
+requires 'MooseX::Types' => '0.20';
+requires 'YAML';
+
+test_requires 'Test::More';
+
+tests ( join ' ', ( glob('t/*.t'), glob('t/*/*.t') ) );
+
+install_script glob('bin/*.pl');
+
+auto_install;
+WriteAll;
