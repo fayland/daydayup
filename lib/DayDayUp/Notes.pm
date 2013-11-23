@@ -2,7 +2,7 @@ package DayDayUp::Notes; # make CPAN happy
 
 use mop;
 
-class DayDayUp::Notes extends DayDayUp::Controller {
+class DayDayUp::Notes extends Mojolicious::Controller {
 
     our $VERSION = '0.95';
 
@@ -30,7 +30,6 @@ class DayDayUp::Notes extends DayDayUp::Controller {
                 = [ sort { $b->time <=> $a->time } @{ $notes->{$key} } ];
         }
         $self->stash->{notes} = $notes;
-        $self->render_tt( 'notes/index.html' );
     };
 
     method add {
@@ -57,7 +56,7 @@ class DayDayUp::Notes extends DayDayUp::Controller {
             $kioku->insert($note);
         });
 
-        $self->redirect_tt( '/notes' );
+        $self->redirect_to( '/notes' );
     };
 
     method edit {
@@ -92,7 +91,7 @@ class DayDayUp::Notes extends DayDayUp::Controller {
             });
         }
 
-        $self->redirect_tt( '/notes' );
+        $self->redirect_to( '/notes' );
     };
 
     method delete {
@@ -104,7 +103,7 @@ class DayDayUp::Notes extends DayDayUp::Controller {
         my $scope = $kioku->new_scope;
         $kioku->delete($id);
 
-        $self->redirect_tt( '/notes' );
+        $self->redirect_to( '/notes' );
     };
 
     method update {
@@ -133,7 +132,7 @@ class DayDayUp::Notes extends DayDayUp::Controller {
             });
         }
 
-        $self->redirect_tt( '/notes' );
+        $self->redirect_to( '/notes' );
     };
 
     method view_all {
@@ -159,7 +158,6 @@ class DayDayUp::Notes extends DayDayUp::Controller {
     		is_in_view_all_page => 1,
     		status => $status,
     	} );
-    	$self->render_tt( 'notes/index.html' );
     }
 };
 
