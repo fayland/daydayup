@@ -1,4 +1,4 @@
-package DayDayUp; # make CPAN happy
+# package DayDayUp; # make CPAN happy
 
 use mop;
 
@@ -16,19 +16,10 @@ class DayDayUp extends Mojolicious with DayDayUp::Extra {
 
     # This method will run once at server start
     method startup {
-        print STDERR "ZZZZ\n";
-
-    	# set log place
-    	my $log_path = File::Spec->catfile(File::Spec->tmpdir(), 'daydayup.log');
-    	$self->log->path( $log_path );
-    	print STDERR "Logging into $log_path\n";
 
         my $r = $self->routes;
-
-        # route
         $r->route('/notes/:id/:action', id => qr/[\w\-]+/)
           ->to(controller => 'notes', action => 'index');
-
         # Default route
         $r->route('/:controller/:action')
           ->to(controller => 'notes', action => 'index');
