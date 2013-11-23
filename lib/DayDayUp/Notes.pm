@@ -1,7 +1,4 @@
-package DayDayUp::Notes; # make CPAN happy
-
 use mop;
-
 class DayDayUp::Notes extends Mojolicious::Controller {
 
     our $VERSION = '0.95';
@@ -9,8 +6,7 @@ class DayDayUp::Notes extends Mojolicious::Controller {
     use DayDayUpX::Note;
 
     method index {
-
-        my $notes;
+        my $notes = {};
 
         my $kioku = $self->app->kioku;
         my $scope = $kioku->new_scope;
@@ -30,12 +26,13 @@ class DayDayUp::Notes extends Mojolicious::Controller {
                 = [ sort { $b->time <=> $a->time } @{ $notes->{$key} } ];
         }
         $self->stash->{notes} = $notes;
+        $self->render(template => 'notes/index');
     };
 
     method add {
 
         unless ( $self->req->method eq 'POST' ) {
-            return $self->render_tt( 'notes/add.html' );
+            return $self->render(template => 'notes/add');
         }
 
         my $config = $self->app->config;
@@ -73,7 +70,7 @@ class DayDayUp::Notes extends Mojolicious::Controller {
         	$self->stash->{fif} = {
         		text => $note->text,
         	};
-            return $self->render_tt( 'notes/add.html' );
+            return $self->render(template => 'notes/add');
         }
 
         my $params = $self->req->params->to_hash;
@@ -158,6 +155,7 @@ class DayDayUp::Notes extends Mojolicious::Controller {
     		is_in_view_all_page => 1,
     		status => $status,
     	} );
+        $self->render(template => 'notes/index');
     }
 };
 

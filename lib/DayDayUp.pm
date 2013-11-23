@@ -16,7 +16,6 @@ class DayDayUp extends Mojolicious with DayDayUp::Extra {
 
     # This method will run once at server start
     method startup {
-
         my $r = $self->routes;
         $r->route('/notes/:id/:action', id => qr/[\w\-]+/)
           ->to(controller => 'notes', action => 'index');
@@ -24,6 +23,7 @@ class DayDayUp extends Mojolicious with DayDayUp::Extra {
         $r->route('/:controller/:action')
           ->to(controller => 'notes', action => 'index');
 
+        $self->plugin('charset' => {charset => 'UTF-8'});
         $self->plugin('tt_renderer' => {
             template_options => {
                 COMPILE_DIR  => File::Spec->tmpdir(),
@@ -34,6 +34,7 @@ class DayDayUp extends Mojolicious with DayDayUp::Extra {
                 WRAPPER      => 'wrapper.html',
             }
         });
+        $self->renderer->default_handler( 'tt' );
     }
 };
 
