@@ -8,17 +8,17 @@ version_from    ('lib/DayDayUp.pm');
 
 repository 'http://github.com/fayland/daydayup/tree/master';
 
-requires 'Mojo'     => '0.991251';
+requires 'Mojolicious' => '4';
 requires 'Moose'    => '0.89';
 requires 'Template' => '2.20';
 requires 'Template::Plugin::FillInForm';
-requires 'MojoX::Renderer::TT' => '0.31';
-requires 'MojoX::Fixup::XHTML';
+requires 'Mojolicious::Plugin::TtRenderer' => '0.31';
+# requires 'MojoX::Fixup::XHTML';
 requires 'KiokuDB'  => '0.32';
 requires 'KiokuDB::Backend::DBI' => '0.07';
 requires 'DBD::SQLite' => '1.25';
 requires 'mop';
-requires 'MooseX::Types' => '0.20';
+#requires 'MooseX::Types' => '0.20';
 requires 'YAML';
 
 test_requires 'Test::More';
