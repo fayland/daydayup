@@ -2,7 +2,7 @@ NAME
     DayDayUp - good good study, day day up
 
 DESCRIPTION
-    it is just a test with Mojo + KiokuDB + MooseX::Declare
+    it is just a test with Mojo + KiokuDB + mop
 
     but I do not mind if you use it in your localhost (at your own risk).
 
@@ -13,7 +13,7 @@ CONFIGURATION
     create a daydayup_local.yml at the same dir as daydayup.yml
 
 SEE ALSO
-    Mojo, Mojolicious, KiokuDB, MooseX::Declare
+    Mojo, Mojolicious, KiokuDB, mop
 
 AUTHOR
     Fayland Lam < fayland at gmail dot com >

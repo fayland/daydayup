@@ -1,6 +1,6 @@
 package DayDayUpX::Note; # make CPAN happy
 
-use MooseX::Declare;
+use mop;
 
 class DayDayUpX::Note with DayDayUpX::Role::WithTags {
 
